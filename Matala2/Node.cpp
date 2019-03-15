@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Node.hpp"
 
 Node::Node(int data){
@@ -9,10 +10,3 @@ this->right = NULL;
 
 }
 
-Node::setData(int data){
-    this->data = data;
-}
-
-Node::setRight(Node *right){
-    this->*right = right;
-}
