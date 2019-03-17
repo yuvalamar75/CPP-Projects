@@ -19,6 +19,8 @@ tree.insert(1);
 tree.insert(1);
 tree.insert(23);
 tree.insert(24);
+tree.insert(17);
+
 
 
 
