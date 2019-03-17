@@ -22,8 +22,6 @@ tree.insert(24);
 
 
 
-
-
 std:: cout <<tree.size()<<"\n";
 tree.print(tree.getRoot());
 printf("\n");
