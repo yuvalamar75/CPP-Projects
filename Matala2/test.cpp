@@ -29,7 +29,7 @@ tree.insert(3);
 
 
 std:: cout <<tree.size()<<"\n";
-    tree.print(tree.getRoot());
+    tree.print();
     tree.remove(15);
    /* tree.remove(4);
        tree.remove(5);
@@ -39,7 +39,7 @@ std:: cout <<tree.size()<<"\n";
 
 
     printf("\n");
-tree.print(tree.getRoot());
+tree.print();
 printf("\n");
 std:: cout <<tree.size()<<"\n";
 
