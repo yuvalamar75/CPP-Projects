@@ -3,21 +3,15 @@
 
 
 
-Node* minValueNode(Node * node);
-bool isLeaf(Node * node);
-bool removeRec(Node * root, int key);
-void insertRec(Node* node, int key);
-
-
-Tree:: Tree(Node* root){
+ariel::Tree:: Tree(Node* root){
     this->roott= root;
 }
 
-Tree:: Tree(){
+ariel::Tree:: Tree(){
     this->roott = NULL;
 }
 
-void Tree:: insert(int i){
+void ariel::Tree:: insert(int i){
     if(roott == NULL) {
         Node* node = new Node(i);
         this->roott = node;
@@ -27,7 +21,7 @@ void Tree:: insert(int i){
     insertRec(roott, i);
 }
 
-void Tree:: insertRec(Node* node, int i){
+void ariel::Tree:: insertRec(Node* node, int i){
     if( i> node->getData() ){
         if (node->getRight()== NULL){
             Node* node1 = new Node(i);
@@ -54,26 +48,26 @@ void Tree:: insertRec(Node* node, int i){
     }
 }
 
-int Tree:: root(){
+int ariel::Tree:: root(){
     return roott->getData();
 
 }
 
-bool Tree::contains(int i) {
+bool ariel::Tree::contains(int i) {
     return containsRec(roott, i);
 }
 
-bool Tree::containsRec(Node* roott,int i){
+bool ariel::Tree::containsRec(Node* roott,int i){
     if (roott == NULL) return false;
     if (roott->getData() == i) return true;
     return (containsRec(roott->getRight(), i) || containsRec(roott->getLeft(), i));
 }
 
-int Tree ::father(int i) {
+int ariel::Tree ::parent(int i) {
     if(!contains(i)) return -1;
     return fatherRec(roott,i);
 }
-int Tree ::fatherRec(Node *roott, int i) {
+int ariel::Tree ::fatherRec(Node *roott, int i) {
     if (roott == NULL) return -1;
     if(roott->getData() == i ) return -1;
     if (roott->getRight() != NULL && roott->getRight()->getData() == i) return roott->getData();
@@ -85,18 +79,16 @@ int Tree ::fatherRec(Node *roott, int i) {
 
 
 
-
-
-
-int Tree:: size(){
+int ariel::Tree:: size(){
     return numOfNode;
 }
 
-int Tree::left(int i) {
+int ariel::Tree::left(int i) {
     if(!contains(i)) return -1;
     return leftRec(roott,i);
 }
-int Tree::leftRec(Node* roott,int i){
+
+int ariel::Tree::leftRec(Node* roott,int i){
     if (roott == NULL ) return -1;
     if(i == roott->getData()){
         if (roott->getLeft() != NULL) return roott->getLeft()->getData();
@@ -105,12 +97,13 @@ int Tree::leftRec(Node* roott,int i){
     if(i > roott->getData() ) return leftRec(roott->getRight(),i);
     else return leftRec(roott->getLeft(),i);
 }
-int Tree::right(int i) {
+
+int ariel::Tree::right(int i) {
     if(!contains(i)) return -1;
     return rightRec(roott,i);
 }
 
-int Tree::rightRec(Node* roott,int i){
+int ariel::Tree::rightRec(Node* roott,int i){
     if (roott == NULL ) return -1;
     if(i == roott->getData()){
         if (roott->getRight() != NULL) return roott->getRight()->getData();
@@ -120,60 +113,19 @@ int Tree::rightRec(Node* roott,int i){
     else return leftRec(roott->getLeft(),i);
 }
 
-void Tree::remove(int i) {
-     removeRec(roott,i);
-}
-
-void Tree::removeRec(Node *root, int i) {
-
-    if (root == NULL) {
-        cout << "There is nothing to delete";
-        return;
+void ariel::Tree::remove(int i) {
+    Node* check = removeRec(roott, i);
+    if (check != NULL){
+        cout <<" the number " << check->getData() << " was deleted";
     }
-
-    Node* toBeDelete = findNode(i);
-    if (isLeaf(toBeDelete)){
-        free(toBeDelete);
-        return;
-    }
-    if (toBeDelete->getRight() == NULL){
-        Node temp = findMin(toBeDelete);
-    }
-
-
-}
-   Node* Tree::findPred(Node *root) {
-       static Node* temp;
-       if(root == NULL) {
-           return temp;
-       }
-       else {
-           temp = root;
-           return findPred(root->getRight());
-       }
-
-}
-
-
-bool isLeaf(Node * node)
-{
-    return (node->getLeft()== NULL && node->getRight() == NULL);
-}
-
-Node *Tree::getRoot() const {
-    return roott;
-}
-
-void Tree::print(Node * root) {
-    if (root != NULL) {
-        print(root->getLeft());
-        std:: cout<<root->getData()<<" ";
-        print(root->getRight());
+    else
+    {
+        throw "the key isnt in the tree";
     }
 }
 
-Node* findMin(Node* node){
-    Node* current = node;
+ariel::Node* findMin(ariel::Node* node){
+    ariel::Node* current = node;
 
     /* loop down to find the leftmost leaf */
     while (current->getLeft() != NULL)
@@ -182,23 +134,64 @@ Node* findMin(Node* node){
     return current;
 }
 
-Node* findMax(Node* node){
-    Node* current = node;
 
-    /* loop down to find the leftmost leaf */
-    while (current->getRight() != NULL)
-        current = current->getRight();
-    return current;
+ariel::Node* ariel::Tree::getRoot() const {
+    return roott;
 }
 
-Node* Tree::findNode(int i) {
-    if (roott == NULL) return NULL;
-    if (roott->getData() == i) return roott;
-    if (i<roott->getData()) return findNodeRec(roott->getLeft(),i);
-    return findNodeRec(roott->getRight(),i);
-
+void ariel::Tree::print(Node * root) {
+    if (root != NULL) {
+        print(root->getLeft());
+        std:: cout<<root->getData()<<" ";
+        print(root->getRight());
+    }
 }
 
+    ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
+    if (roott == NULL) return roott;
+
+    // If the key to be deleted is smaller than the root's key,
+    // then it lies in left subtree
+    if (i < roott->getData())
+        roott->setLeft(removeRec(roott->getLeft(), i));
+
+        // If the key to be deleted is greater than the root's key,
+        // then it lies in right subtree
+    else if (i > roott->getData())
+        roott->setRight(removeRec(roott->getRight(), i));
+
+        // if key is same as root's key, then This is the node
+        // to be deleted
+    else
+    {
+        // node with only one child or no child
+        if (roott->getLeft()== NULL)
+        {
+            Node* node= roott->getRight();
+            delete roott;
+            numOfNode--;
+            return node;
+        }
+        else if (roott->getRight() == NULL)
+        {
+            Node* node= roott->getLeft();
+            delete roott;
+            numOfNode--;
+            return node;
+        }
+
+        // node with two children: Get the inorder successor (smallest
+        // in the right subtree)
+       Node* node1= findMin(roott->getRight());
+
+        // Copy the inorder successor's content to this node
+        roott->setData(node1->getData());
+
+        // Delete the inorder successor
+       roott->setRight(removeRec(roott->getRight(), node1->getData()));
+    }
+    return roott;
+}
 
 
 
