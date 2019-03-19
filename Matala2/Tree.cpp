@@ -139,12 +139,8 @@ ariel::Node* ariel::Tree::getRoot() const {
     return roott;
 }
 
-void ariel::Tree::print(Node * root) {
-    if (root != NULL) {
-        print(root->getLeft());
-        std:: cout<<root->getData()<<" ";
-        print(root->getRight());
-    }
+void ariel::Tree::print() {
+    print(roott);
 }
 
 ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
@@ -193,6 +189,14 @@ ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
         roott->setRight(removeRec(roott->getRight(), node1->getData()));
     }
     return roott;
+}
+
+void ariel::Tree::print(ariel::Node *pNode) {
+    if (pNode != NULL) {
+        print(pNode->getLeft());
+        cout<<pNode->getData()<<" ";
+        print(pNode->getRight());
+    }
 }
 
 

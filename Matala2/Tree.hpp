@@ -72,7 +72,7 @@ namespace ariel {
 
         int right(int i);
 
-        void print(Node *root);
+        void print();
 
 
     private:
@@ -93,5 +93,7 @@ namespace ariel {
         Node *findNodeRec(Node *roott, int i);
 
         Node *removeRec(Node *roott, int i);
+
+        void print(Node *pNode);
     };
 };
