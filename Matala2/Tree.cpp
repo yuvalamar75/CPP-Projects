@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Tree.hpp"
+#include "exception"
 
 
 
@@ -17,6 +18,10 @@ void ariel::Tree:: insert(int i){
         this->roott = node;
         numOfNode++;
         return;
+    }
+
+    if (contains(i)){
+        throw "received key which is already in the table";
     }
     insertRec(roott, i);
 }
@@ -77,8 +82,6 @@ int ariel::Tree ::fatherRec(Node *roott, int i) {
 
 }
 
-
-
 int ariel::Tree:: size(){
     return numOfNode;
 }
@@ -114,14 +117,11 @@ int ariel::Tree::rightRec(Node* roott,int i){
 }
 
 void ariel::Tree::remove(int i) {
-    Node* check = removeRec(roott, i);
-    if (check != NULL){
-        cout <<" the number " << check->getData() << " was deleted";
-    }
-    else
-    {
+    if (!contains(i))
         throw "the key isnt in the tree";
-    }
+
+    removeRec(roott,i);
+
 }
 
 ariel::Node* findMin(ariel::Node* node){
@@ -147,7 +147,7 @@ void ariel::Tree::print(Node * root) {
     }
 }
 
-    ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
+ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
     if (roott == NULL) return roott;
 
     // If the key to be deleted is smaller than the root's key,
@@ -157,6 +157,7 @@ void ariel::Tree::print(Node * root) {
 
         // If the key to be deleted is greater than the root's key,
         // then it lies in right subtree
+
     else if (i > roott->getData())
         roott->setRight(removeRec(roott->getRight(), i));
 
@@ -172,6 +173,7 @@ void ariel::Tree::print(Node * root) {
             numOfNode--;
             return node;
         }
+
         else if (roott->getRight() == NULL)
         {
             Node* node= roott->getLeft();
@@ -182,13 +184,13 @@ void ariel::Tree::print(Node * root) {
 
         // node with two children: Get the inorder successor (smallest
         // in the right subtree)
-       Node* node1= findMin(roott->getRight());
+        Node* node1= findMin(roott->getRight());
 
         // Copy the inorder successor's content to this node
         roott->setData(node1->getData());
 
         // Delete the inorder successor
-       roott->setRight(removeRec(roott->getRight(), node1->getData()));
+        roott->setRight(removeRec(roott->getRight(), node1->getData()));
     }
     return roott;
 }
