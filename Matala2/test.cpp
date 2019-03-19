@@ -15,11 +15,7 @@ tree.insert(12);
 tree.insert(20);
 tree.insert(4);
 tree.insert(3);
-tree.insert(1);
-tree.insert(1);
-tree.insert(23);
-tree.insert(24);
-tree.insert(17);
+
 
 
 
@@ -27,11 +23,11 @@ tree.insert(17);
 std:: cout <<tree.size()<<"\n";
 tree.print(tree.getRoot());
 printf("\n");
-bool flag = tree.contains(50);
-std:: cout<<flag<<"\n";
-cout <<tree.father(12)<<"\n";
-cout<<tree.left(5)<<"\n";
-cout<<tree.right(4);
+tree.remove(5);
+tree.print(tree.getRoot());
+
+
+
 
 return 0;
 

@@ -22,7 +22,7 @@ public:
 
     //functions
     void insert(int i);
-    bool remove(int i);
+    void remove(int i);
     int size();
     int root();
     bool contains(int i);
@@ -38,5 +38,9 @@ private:
     int fatherRec(Node* roott,int i);
     int leftRec(Node* roott,int i);
     int rightRec(Node* roott,int i);
-
+    void removeRec(Node* root,int i);
+    Node* findPred(Node* root);
+    Node * findNode(int i);
+    Node * findNodeRec(Node * roott,int i);
+    Node * findMin
 };

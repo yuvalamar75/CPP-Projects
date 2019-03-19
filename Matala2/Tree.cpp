@@ -63,6 +63,12 @@ bool Tree::contains(int i) {
     return containsRec(roott, i);
 }
 
+bool Tree::containsRec(Node* roott,int i){
+    if (roott == NULL) return false;
+    if (roott->getData() == i) return true;
+    return (containsRec(roott->getRight(), i) || containsRec(roott->getLeft(), i));
+}
+
 int Tree ::father(int i) {
     if(!contains(i)) return -1;
     return fatherRec(roott,i);
@@ -77,11 +83,7 @@ int Tree ::fatherRec(Node *roott, int i) {
 
 }
 
-bool Tree::containsRec(Node* roott,int i){
-    if (roott == NULL) return false;
-    if (roott->getData() == i) return true;
-    return (containsRec(roott->getRight(), i) || containsRec(roott->getLeft(), i));
-}
+
 
 
 
@@ -118,62 +120,40 @@ int Tree::rightRec(Node* roott,int i){
     else return leftRec(roott->getLeft(),i);
 }
 
-/*
-bool Tree:: remove(int key) {
-    removeRec(roott, key);
+void Tree::remove(int i) {
+     removeRec(roott,i);
 }
 
-bool removeRec(Node * roott, int key) {
+void Tree::removeRec(Node *root, int i) {
 
-    if (roott == NULL) return false;
-
-    // If the key to be deleted is smaller than the roott's key,
-    // then it lies in left subtree
-    if (key < roott->getData())
-        removeRec(roott->getLeft(), key);
-
-        // If the key to be deleted is greater than the roott's key,
-        // then it lies in right subtree
-    else if (key > roott->getData())
-        removeRec(roott->getRight(), key);
-
-        // if key is same as roott's key, then This is the node
-        // to be deleted
-    else
-    {
-
-        if (isLeaf(roott)){
-            roott = NULL;
-            return true;
-        }
-        // node with only one child or no child
-        if (roott->getLeft() == NULL)
-        {
-            Node* temp = minValueNode(roott->getRight());
-
-            roott->setRight(tmp);
-            return tmp;
-        }
-
-        else if (roott->getRight() == NULL)
-        {
-            Node * tmp = new Node(key);
-            roott->setLeft(tmp);
-            return tmp;
-        }
-
-        // node with two children: Get the inorder successor (smallest
-        // in the right subtree)
-         Node* temp = minValueNode(roott->getRight());
-
-        // Copy the inorder successor's content to this node
-        roott->setData(temp->getData());
-
-        // Delete the inorder successor
-        roott->setRight(removeRec(roott->getRight(), temp->getData()));
+    if (root == NULL) {
+        cout << "There is nothing to delete";
+        return;
     }
-    return roott;
-}*/
+
+    Node* toBeDelete = findNode(i);
+    if (isLeaf(toBeDelete)){
+        free(toBeDelete);
+        return;
+    }
+    if (toBeDelete->getRight() == NULL){
+        Node temp = findMin(toBeDelete);
+    }
+
+
+}
+   Node* Tree::findPred(Node *root) {
+       static Node* temp;
+       if(root == NULL) {
+           return temp;
+       }
+       else {
+           temp = root;
+           return findPred(root->getRight());
+       }
+
+}
+
 
 bool isLeaf(Node * node)
 {
@@ -184,16 +164,6 @@ Node *Tree::getRoot() const {
     return roott;
 }
 
-Node* minValueNode(Node * node)
-{
-    Node* current = node;
-
-    /* loop down to find the leftmost leaf */
-    while (current->getLeft() != NULL)
-        current = current->getLeft();
-    return current;
-}
-
 void Tree::print(Node * root) {
     if (root != NULL) {
         print(root->getLeft());
@@ -201,6 +171,36 @@ void Tree::print(Node * root) {
         print(root->getRight());
     }
 }
+
+Node* findMin(Node* node){
+    Node* current = node;
+
+    /* loop down to find the leftmost leaf */
+    while (current->getLeft() != NULL)
+        current = current->getLeft();
+
+    return current;
+}
+
+Node* findMax(Node* node){
+    Node* current = node;
+
+    /* loop down to find the leftmost leaf */
+    while (current->getRight() != NULL)
+        current = current->getRight();
+    return current;
+}
+
+Node* Tree::findNode(int i) {
+    if (roott == NULL) return NULL;
+    if (roott->getData() == i) return roott;
+    if (i<roott->getData()) return findNodeRec(roott->getLeft(),i);
+    return findNodeRec(roott->getRight(),i);
+
+}
+
+
+
 
 
 
