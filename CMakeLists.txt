@@ -7,7 +7,6 @@ include_directories(Matala2)
 
 add_executable(CPP_Projects
         Matala2/Node.cpp
-        Matala2/Node.hpp
         Matala2/test.cpp
         Matala2/Tree.cpp
         Matala2/Tree.hpp)
