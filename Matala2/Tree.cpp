@@ -69,12 +69,12 @@ bool ariel::Tree::containsRec(Node* roott,int i){
 }
 
 int ariel::Tree ::parent(int i) {
-    if(!contains(i)) return -1;
+    if(!contains(i)) throw " the key is not in the tree!";
     return fatherRec(roott,i);
 }
 int ariel::Tree ::fatherRec(Node *roott, int i) {
-    if (roott == NULL) return -1;
-    if(roott->getData() == i ) return -1;
+    if (roott == NULL) throw " the key is not in the tree!";;
+    if(roott->getData() == i ) throw " the key is the root";
     if (roott->getRight() != NULL && roott->getRight()->getData() == i) return roott->getData();
     if (roott->getLeft() != NULL && roott->getLeft()->getData() == i) return roott->getData();
     if(i > roott->getData()) return fatherRec(roott->getRight(),i);
@@ -92,10 +92,10 @@ int ariel::Tree::left(int i) {
 }
 
 int ariel::Tree::leftRec(Node* roott,int i){
-    if (roott == NULL ) return -1;
+    if (roott == NULL ) throw " the key is not in the tree!";
     if(i == roott->getData()){
         if (roott->getLeft() != NULL) return roott->getLeft()->getData();
-        else return -1;
+        else throw " the key is not in the tree!";
     }
     if(i > roott->getData() ) return leftRec(roott->getRight(),i);
     else return leftRec(roott->getLeft(),i);
@@ -107,13 +107,13 @@ int ariel::Tree::right(int i) {
 }
 
 int ariel::Tree::rightRec(Node* roott,int i){
-    if (roott == NULL ) return -1;
+    if (roott == NULL ) throw " the tree is empty!";;
     if(i == roott->getData()){
         if (roott->getRight() != NULL) return roott->getRight()->getData();
-        else return -1;
+        else throw " is doesnt have right children!";;
     }
-    if(i > roott->getData() ) return leftRec(roott->getRight(),i);
-    else return leftRec(roott->getLeft(),i);
+    if(i > roott->getData() ) return rightRec(roott->getRight(),i);
+    else return rightRec(roott->getLeft(),i);
 }
 
 void ariel::Tree::remove(int i) {
