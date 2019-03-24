@@ -87,7 +87,7 @@ int ariel::Tree:: size(){
 }
 
 int ariel::Tree::left(int i) {
-    if(!contains(i)) return -1;
+    if(!contains(i)) throw "the key is not in the tree!";
     return leftRec(roott,i);
 }
 
@@ -102,7 +102,7 @@ int ariel::Tree::leftRec(Node* roott,int i){
 }
 
 int ariel::Tree::right(int i) {
-    if(!contains(i)) return -1;
+    if(!contains(i)) throw "the key is not in the tree!";
     return rightRec(roott,i);
 }
 
@@ -193,10 +193,28 @@ ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
 void ariel::Tree::print(ariel::Node *pNode) {
     if (pNode != NULL) {
         print(pNode->getLeft());
-        cout<<pNode->getData()<<" ";
+        cout << pNode->getData() << " ";
         print(pNode->getRight());
     }
 }
+
+    void:: ariel::Tree::deleteTree() {
+        deleteTree(roott);
+    }
+
+    void ariel:: Tree::deleteTree(ariel::Node* root) {
+
+            if (root == NULL) return;
+
+            /* first delete both subtrees */
+            deleteTree(root->getLeft());
+            deleteTree(root->getRight());
+
+            /* then delete the node */
+            cout << "\n Deleting node: " << root->getData();
+            delete root;
+        }
+
 
 
 

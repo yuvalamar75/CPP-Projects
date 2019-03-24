@@ -34,10 +34,13 @@ tree.insert(3);
         cout<<"coulnt delete";
     }
 
+
 printf("\n");
 tree.print();
 printf("\n");
-std:: cout <<tree.size()<<"\n";
+tree.deleteTree();
+cout<<tree.size();
+
 
 
 
