@@ -9,15 +9,9 @@ int main(){
 
 std:: cout << "hello friend"<< "\n";
 
-    ariel::Tree tree;
-tree.insert(5);
-    try {
-        tree.insert(5);
-    }
-    catch (...){
-        cout<<"received key which is already in the table";
-    }
+ariel::Tree tree;
 
+tree.insert(5);
 tree.insert(15);
 tree.insert(12);
 tree.insert(20);
@@ -26,22 +20,25 @@ tree.insert(3);
 
 
 
-
-
-std:: cout <<tree.size()<<"\n";
     tree.print();
-    tree.remove(15);
-   /* tree.remove(4);
-       tree.remove(5);
-        tree.remove(12);
+    try {
         tree.remove(15);
-        tree.remove(20);*/
+        tree.remove(5);
+        tree.remove(4);
+        tree.remove(20);
+        tree.remove(12);
+        tree.remove(3);
 
+    }
+    catch (...){
+        cout<<"coulnt delete";
+    }
 
-    printf("\n");
+printf("\n");
 tree.print();
 printf("\n");
 std:: cout <<tree.size()<<"\n";
+
 
 
 

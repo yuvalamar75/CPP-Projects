@@ -117,9 +117,17 @@ int ariel::Tree::rightRec(Node* roott,int i){
 }
 
 void ariel::Tree::remove(int i) {
-    if (!contains(i))
-        throw "the key isnt in the tree";
+    if (!contains(i) || roott == NULL)
+        throw "the key isnt in the tree or the tree is empty";
 
+    if (roott->getData() == i && numOfNode == 1 ){
+        delete roott;
+        roott = NULL;
+        numOfNode--;
+        return;
+    }
+
+    numOfNode--;
     removeRec(roott,i);
 
 }
@@ -144,49 +152,40 @@ void ariel::Tree::print() {
 }
 
 ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
-    if (roott == NULL) return roott;
 
-    // If the key to be deleted is smaller than the root's key,
-    // then it lies in left subtree
-    if (i < roott->getData())
-        roott->setLeft(removeRec(roott->getLeft(), i));
+    if(roott == NULL) return roott;
+    else if(i < roott->getData()) roott->setLeft(removeRec(roott->getLeft(),i));
+    else if (i > roott->getData()) roott->setRight(removeRec(roott->getRight(),i));
 
-        // If the key to be deleted is greater than the root's key,
-        // then it lies in right subtree
-
-    else if (i > roott->getData())
-        roott->setRight(removeRec(roott->getRight(), i));
-
-        // if key is same as root's key, then This is the node
-        // to be deleted
-    else
-    {
-        // node with only one child or no child
-        if (roott->getLeft()== NULL)
-        {
-            Node* node= roott->getRight();
+    else {
+        // Case 1:  No child
+        if(roott->getLeft() == NULL && roott->getRight() == NULL) {
             delete roott;
-            numOfNode--;
-            return node;
+            roott = NULL;
         }
+            //Case 2: One child
+        else if(roott->getLeft() == NULL) {
+            Node *temp = roott;
+            roott = roott->getRight();
+            delete temp;
+            if (numOfNode == 1)
+                this->roott = roott;
 
-        else if (roott->getRight() == NULL)
-        {
-            Node* node= roott->getLeft();
-            delete roott;
-            numOfNode--;
-            return node;
         }
+        else if(roott->getRight() == NULL) {
+            Node *temp = roott;
+            roott = roott->getLeft();
+            delete temp;
+            if (numOfNode == 1)
+                this->roott = roott;
 
-        // node with two children: Get the inorder successor (smallest
-        // in the right subtree)
-        Node* node1= findMin(roott->getRight());
-
-        // Copy the inorder successor's content to this node
-        roott->setData(node1->getData());
-
-        // Delete the inorder successor
-        roott->setRight(removeRec(roott->getRight(), node1->getData()));
+        }
+            // case 3: 2 children
+        else {
+            Node *temp = findMin(roott->getRight());
+            roott->setData(temp->getData());
+            roott->setRight(removeRec(roott->getRight(),temp->getData()));
+        }
     }
     return roott;
 }
