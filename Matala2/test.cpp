@@ -7,42 +7,44 @@
 
 int main(){
 
-std:: cout << "hello friend"<< "\n";
+    cout << "hello friend"<< "\n";
 
-ariel::Tree tree;
+ariel::Tree fourrighttree;
 
-tree.insert(5);
-tree.insert(15);
-tree.insert(12);
-tree.insert(20);
-tree.insert(4);
-tree.insert(3);
-
-
-
-    tree.print();
-    try {
-        tree.remove(15);
-        tree.remove(5);
-        tree.remove(4);
-        tree.remove(20);
-        tree.remove(12);
-        tree.remove(3);
-
-    }
-    catch (...){
-        cout<<"coulnt delete";
-    }
-
-
-printf("\n");
+    fourrighttree.insert(22);
+    fourrighttree.insert(35);
+    fourrighttree.insert(44);
+    fourrighttree.insert(59);
+          // cout<< fourrighttree.root();
+          //cout<< fourrighttree.right(44)<<": should be 59";
+          fourrighttree.remove(59);
+          fourrighttree.right(44);
+          /*fourrighttree.remove(59))
+          fourrighttree.parent(35),22)
+           fourrighttree.parent(22))
+         fourrighttree.remove(29))
+            fourrighttree.left(35))
+          fourrighttree.remove(22))
+         fourrighttree.print())
+         fourrighttree.root(),35)
+          fourrighttree.size(),2)*/
+        fourrighttree.print();
+/*
+cout<<tree.parent(35)<< ": shuld be 22\n";
+cout<< tree.parent(22)<< ": should be erroe\n";
+tree.remove(29);
+cout<< "shoud be error!";
+cout<<tree.left(35) <<": shoud be error \n";
+tree.remove(22);
 tree.print();
-printf("\n");
-tree.deleteTree();
-cout<<tree.size();
+
+cout<< tree.root()<<": shold be 35\n";
+cout <<tree.size() <<": should be 2\n";
 
 
 
+cout<<tree.contains(3)<<"\n";
+*/
 
 
 

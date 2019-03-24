@@ -107,18 +107,25 @@ int ariel::Tree::right(int i) {
 }
 
 int ariel::Tree::rightRec(Node* roott,int i){
-    if (roott == NULL ) throw " the tree is empty!";;
-    if(i == roott->getData()){
-        if (roott->getRight() != NULL) return roott->getRight()->getData();
-        else throw " is doesnt have right children!";;
-    }
-    if(i > roott->getData() ) return rightRec(roott->getRight(),i);
-    else return rightRec(roott->getLeft(),i);
+   if (roott == NULL) throw "error ocuured!";
+   if (roott->getData() > i) return rightRec(roott->getLeft(), i);
+   else if (roott->getData() < i ) return rightRec(roott->getRight(),i);
+   else{
+       if (roott->getRight() == NULL) throw "errorrrrr";
+       else return roott->getRight()->getData();
+   }
 }
 
 void ariel::Tree::remove(int i) {
     if (!contains(i) || roott == NULL)
         throw "the key isnt in the tree or the tree is empty";
+
+    //case 0: the key is the root:
+    if (this->roott->getData() == i){
+        this->roott = removeRec(roott, i);
+        numOfNode--;
+        return;
+    }
 
     if (roott->getData() == i && numOfNode == 1 ){
         delete roott;
@@ -153,11 +160,16 @@ void ariel::Tree::print() {
 
 ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
 
+
     if(roott == NULL) return roott;
     else if(i < roott->getData()) roott->setLeft(removeRec(roott->getLeft(),i));
     else if (i > roott->getData()) roott->setRight(removeRec(roott->getRight(),i));
 
     else {
+
+
+
+
         // Case 1:  No child
         if(roott->getLeft() == NULL && roott->getRight() == NULL) {
             delete roott;
