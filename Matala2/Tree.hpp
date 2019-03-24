@@ -74,6 +74,8 @@ namespace ariel {
 
         void print();
 
+        void deleteTree();
+
 
     private:
         void insertRec(Node *node, int i);
@@ -85,6 +87,8 @@ namespace ariel {
         int leftRec(Node *roott, int i);
 
         int rightRec(Node *roott, int i);
+
+        void deleteTree(Node* root);
 
         Node *findPred(Node *root);
 
