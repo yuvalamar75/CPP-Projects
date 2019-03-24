@@ -23,6 +23,7 @@ void ariel::Tree:: insert(int i){
     if (contains(i)){
         throw "received key which is already in the table";
     }
+
     insertRec(roott, i);
 }
 
@@ -54,6 +55,7 @@ void ariel::Tree:: insertRec(Node* node, int i){
 }
 
 int ariel::Tree:: root(){
+    if (roott == NULL) throw "there is no root in the tree!";
     return roott->getData();
 
 }
@@ -166,8 +168,6 @@ ariel::Node* ariel::Tree::removeRec(Node * roott, int i) {
     else if (i > roott->getData()) roott->setRight(removeRec(roott->getRight(),i));
 
     else {
-
-
 
 
         // Case 1:  No child
